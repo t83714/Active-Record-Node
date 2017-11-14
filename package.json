@@ -1,0 +1,37 @@
+{
+  "name": "@hostaworld/active-record-node",
+  "version": "1.0.0",
+  "description": "A Simple Active Record Style ORM for Node",
+  "main": "lib/index.bundle.min.js",
+  "scripts": {
+    "prepublish": "PROD_ENV=1 webpack",
+    "build": "webpack --progress --colors",
+    "build:min": "PROD_ENV=1 webpack --progress --colors",
+    "watch": "webpack --progress --colors --watch",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t83714/Active-Record-Node.git"
+  },
+  "keywords": [
+    "Node",
+    "Active",
+    "Record",
+    "ORM",
+    "Database"
+  ],
+  "author": "Jacky Jiang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/t83714/Active-Record-Node/issues"
+  },
+  "homepage": "https://github.com/t83714/Active-Record-Node#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "webpack": "^3.8.1"
+  }
+}
