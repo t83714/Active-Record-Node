@@ -4,6 +4,7 @@
   "description": "A Simple Active Record Style ORM for Node",
   "main": "lib/index.bundle.min.js",
   "scripts": {
+    "publish" : "npm publish --access public",
     "prepublish": "PROD_ENV=1 webpack",
     "build": "webpack --progress --colors",
     "build:min": "PROD_ENV=1 webpack --progress --colors",
