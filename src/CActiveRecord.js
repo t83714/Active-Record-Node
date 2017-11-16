@@ -3,6 +3,7 @@
  * @class CActiveRecord
  * @description CActiveRecord class for ORM; 2017
  */
+import util from "util";
 import createDefaultProxy from "./createDefaultProxy";
 
 const defaultConfig = {
@@ -34,10 +35,14 @@ class CActiveRecord {
         this.updatedFields = [];
 
         if(config.initData && typeof config.initData === "object") {
-            Object.assign(this.data, onfig.initData);
+            Object.assign(this.data, config.initData);
             this.isNewRecord = false;
         }
         this.debug = config.debug;
+    }
+
+    [util.inspect.custom](depth, opts){
+        return this.data;
     }
 
     get(property){
