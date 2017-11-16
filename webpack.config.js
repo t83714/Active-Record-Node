@@ -31,7 +31,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, "lib"),
-        libraryTarget: "commonjs2",
+        libraryTarget: "commonjs",
         filename: PROD ? "index.bundle.min.js" : "index.bundle.js",
     },
     externals:{

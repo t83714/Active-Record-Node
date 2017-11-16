@@ -1,13 +1,10 @@
-import CActiveRecord from "./CActiveRecord";
-import CSearcher from "./CSearcher";
+import CActiveRecordRef from "./CActiveRecord";
+import CSearcherRef from "./CSearcher";
 
-const setDB = (db) => {
-    CActiveRecord.setDefaultConfig({db});
-    CSearcher.setDefaultConfig({db});
+export const setDB = (db) => {
+    CActiveRecordRef.setDefaultConfig({db});
+    CSearcherRef.setDefaultConfig({db});
 };
 
-export {
-    CActiveRecord,
-    CSearcher,
-    setDB,
-};
+export const CActiveRecord = CActiveRecordRef;
+export const CSearcher = CSearcherRef;

@@ -1,2 +1,4 @@
-./src/
+/src/
 webpack.config.js
+/.esm-cache/
+test.js
