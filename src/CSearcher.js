@@ -3,7 +3,9 @@
  * @class CSearcher
  * @description CSearcher class for ORM; Nov 2017; Used for query database & return instance of CActiveRecord
  */
+import util from "util";
 import * as FieldFlags from "./field_flags";
+import * as proxyHandlerSymbols from "./proxyHandlerSymbols";
 import createDefaultProxy from "./createDefaultProxy";
 import CSearchOption from "./CSearchOption";
 import CActiveRecord from "./CActiveRecord";
@@ -85,12 +87,24 @@ class CSearcher {
         this.debug = config.debug;
     }
 
+    get(property){
+        return this[proxyHandlerSymbols.get](property);
+    }
+
     set(property, value){
+        this[proxyHandlerSymbols.set](property, value);
+    }
+
+    [util.inspect.custom](depth, opts){
+        return this.data;
+    }
+
+    [proxyHandlerSymbols.set](property, value){
         if(typeof this.data[property]==="undefined") this.data[property]=new CSearchOption(property);
         this.data[property]["="]=value;
     }
 
-    get(property){
+    [proxyHandlerSymbols.get](property){
         if(typeof this.data[property]==="undefined") {
             this.data[property]=new CSearchOption(property);
             return this.data[property];
@@ -98,15 +112,19 @@ class CSearcher {
         return this.data[property]["="];
     }
 
-    has(property){
+    [proxyHandlerSymbols.has](property){
         return typeof this.data[property]==="undefined"? false : true;
     }
 
-    ownKeys(){
+    [proxyHandlerSymbols.ownKeys](){
         return Object.keys(this.data);
     }
 
-    deleteProperty(property){
+    [proxyHandlerSymbols.getOwnPropertyDescriptor](target, prop){
+        return Object.getOwnPropertyDescriptor(target.data, prop);
+    }
+
+    [proxyHandlerSymbols.deleteProperty](property){
         delete this.data[property];
     }
 

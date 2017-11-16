@@ -3,6 +3,8 @@
  * @class CSearchOption
  * @description Nov 2017; Class presents the search option.
  */
+import util from "util";
+import * as proxyHandlerSymbols from "./proxyHandlerSymbols";
 import createDefaultProxy from "./createDefaultProxy";
 
 const supportOperators = ["=","!=",">",">=","<","<=","LIKE","NOT LIKE","IN","NOT IN","IS NOT NULL","IS NULL"];
@@ -14,24 +16,40 @@ class CSearchOption{
         this.seperator = "AND";
     }
 
+    get(property){
+        return this[proxyHandlerSymbols.get](property);
+    }
+
     set(property, value){
+        this[proxyHandlerSymbols.set](property, value);
+    }
+
+    [util.inspect.custom](depth, opts){
+        return this.operators;
+    }
+
+    [proxyHandlerSymbols.set](property, value){
         if(supportOperators.indexOf(property)===-1) throw new Error(`Unsupport operator ${property}`);
         this.operators[property]=value;
     }
 
-    get(property){
+    [proxyHandlerSymbols.get](property){
         return this.operators[property];
     }
 
-    has(property){
+    [proxyHandlerSymbols.has](property){
         return typeof this.operators[property]==="undefined" ? false: true;
     }
 
-    ownKeys(){
+    [proxyHandlerSymbols.ownKeys](){
         return Object.keys(this.operators);
     }
 
-    deleteProperty(property) {
+    [proxyHandlerSymbols.getOwnPropertyDescriptor](target, prop){
+        return Object.getOwnPropertyDescriptor(target.operators, prop);
+    }
+
+    [proxyHandlerSymbols.deleteProperty](property) {
         delete this.operators[property];
     }
 

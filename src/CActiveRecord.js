@@ -4,6 +4,7 @@
  * @description CActiveRecord class for ORM; 2017
  */
 import util from "util";
+import * as proxyHandlerSymbols from "./proxyHandlerSymbols";
 import createDefaultProxy from "./createDefaultProxy";
 
 const defaultConfig = {
@@ -41,31 +42,43 @@ class CActiveRecord {
         this.debug = config.debug;
     }
 
+    get(property){
+        return this[proxyHandlerSymbols.get](property);
+    }
+
+    set(property, value){
+        this[proxyHandlerSymbols.set](property, value);
+    }
+
     [util.inspect.custom](depth, opts){
         return this.data;
     }
 
-    get(property){
+    [proxyHandlerSymbols.get](property){
         return this.data[property];
     }
 
-    set(property, value){
+    [proxyHandlerSymbols.set](property, value){
         if(this.primaryKeys.indexOf(property)!==-1) throw new Error(`Primary key \`${property}\` cannot be updated!`);
         if(typeof value === "object") this.data[property] = JSON.stringify(value);
         else this.data[property] = value;
         this.updatedFields.push(property);
     }
 
-    has(property){
+    [proxyHandlerSymbols.has](property){
         if(typeof this.data[property] === "undefined") return false;
         else return true;
     }
 
-    ownKeys(){
-        return Object.keys(this.data);
+    [proxyHandlerSymbols.ownKeys](target){
+        return Object.keys(target.data);
     }
 
-    deleteProperty(property){
+    [proxyHandlerSymbols.getOwnPropertyDescriptor](target, prop){
+        return Object.getOwnPropertyDescriptor(target.data, prop);
+    }
+
+    [proxyHandlerSymbols.deleteProperty](property){
         this.set(property,null);
     }
 

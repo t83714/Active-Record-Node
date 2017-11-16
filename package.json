@@ -1,6 +1,6 @@
 {
   "name": "@hostaworld/active-record-node",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Simple Active Record Style ORM for Node",
   "main": "lib/index.bundle.min.js",
   "scripts": {

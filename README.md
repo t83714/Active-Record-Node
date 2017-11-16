@@ -1,6 +1,42 @@
 # Active-Record-Node
 A Simple Active Record Style ORM for Node.
 
+Features:
+* Implment [[util.inspect.custom]](https://nodejs.org/api/util.html#util_custom_inspection_functions_on_objects) method. Therefore, console.log() will show actual data as plain object.
+
+i.e. Implmention details will be covered and only user data is visible from console.log.
+```
+const s = new CSearcher("people"); //--- query people table
+s["firstName"]="Tom"; //-- fetch all records firstName column = "Tom"
+s["lastName"]="Green"; //-- And lastName column = "Green"
+const rows = await s.fetchResult(); //--- fetch all records match the conditions
+console.log(s);
+console.log(rows);
+```
+
+* Used [Proxy object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) to redefine custom behavior for fundamental operations (e.g. property lookup, assignment, enumeration, function invocation, etc) on CActiveRecord Class. Thus, the followings are possible:
+
+```
+const car = new CActiveRecord("cars"); //--- create a new record on `car` table
+car["make"]="ford"; //--- set make column to "ford"
+car["model"]="falcon";
+
+for(let f in rows[0]){
+    console.log(f); //--- output: make, model
+}
+```
+If a table has columns with the following special names:
+* set
+* get
+* delete
+* commit
+
+You can set the column value using `set` or `get` method:
+```
+car.set("set","abc"); //--- set `set` column of `car` table to "abc"
+car.get("get"); //-- get `get` column of `car` table
+```
+
 ## Getting started
 
 Create test table `people` in `test` database:
