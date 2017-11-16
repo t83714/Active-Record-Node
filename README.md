@@ -13,6 +13,11 @@ const rows = await s.fetchResult(); //--- fetch all records match the conditions
 console.log(s);
 console.log(rows);
 ```
+The followings will ne shown in console:
+```
+{ firstName: { '=': 'Tom' }, lastName: { '=': 'Green' } }
+[ { id: 3, firstName: 'Tom', lastName: 'Green' } ]
+```
 
 * Used [Proxy object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) to redefine custom behavior for fundamental operations (e.g. property lookup, assignment, enumeration, function invocation, etc) on CActiveRecord Class. Thus, the followings are possible:
 
