@@ -251,3 +251,40 @@ The following control properties can be used to control how CSearcher fetch resu
 * `groupBy` : group result by certian column
     * e.g. `s.groupBy = 'columnA,columnB';`
 * `debug` : set this property to true will cause CSearcher output all SQL queries to terminal (through `console.log`)
+
+### Function setDB(db)
+
+Ultility function to set db connection to be used by [CActiveRecord](#class-cactiverecord) & [CSearcher](#class-csearcher)
+
+Parameter `db` can be `connection` or `pool` of [mysql2](https://github.com/sidorares/node-mysql2) or [mysql](https://github.com/mysqljs/mysql) libs (or any objects support query & execute method)
+
+Examples: 
+
+```
+const {setDB} = require("@hostaworld/active-record-node");
+//-- Create mysql connection
+const db = mysql.createConnection({
+    host: "192.168.1.166",
+    user: "root",
+    password: "",
+    database: "test"
+});
+
+setDB(db); //-- @hostaworld/active-record-node will use this db connection
+```
+
+or 
+
+```
+const {setDB} = require("@hostaworld/active-record-node");
+//-- Create mysql connection
+const db = mysql.createPool({
+    connectionLimit: 1,
+    host: "192.168.1.166",
+    user: "root",
+    password: "",
+    database: "test"
+});
+
+setDB(db); //-- @hostaworld/active-record-node will use this db connection
+```
