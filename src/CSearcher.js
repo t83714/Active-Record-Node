@@ -155,7 +155,9 @@ export const setDefaultConfig = function(config){
     Object.assign(defaultConfig, config);
 };
 
-const proxiedCSearcher = createDefaultProxy(CSearcher);
+const proxiedCSearcher = createDefaultProxy(CSearcher, {
+    publicPropList : ["orderBy","groupBy","debug"]
+});
 proxiedCSearcher.setDefaultConfig = setDefaultConfig;
 
 export default proxiedCSearcher;

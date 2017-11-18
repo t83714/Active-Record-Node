@@ -156,7 +156,9 @@ export const setDefaultConfig = function(config){
     Object.assign(defaultConfig, config);
 };
 
-const proxiedCActiveRecord = createDefaultProxy(CActiveRecord);
+const proxiedCActiveRecord = createDefaultProxy(CActiveRecord,{
+    publicPropList : ["debug"]
+});
 proxiedCActiveRecord.setDefaultConfig = setDefaultConfig;
 
 export default proxiedCActiveRecord;

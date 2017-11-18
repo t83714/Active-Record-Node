@@ -1,7 +1,7 @@
 # Active-Record-Node
 A Simple Active Record Style ORM for Node.
 
-Features:
+## Features:
 * Implment [[util.inspect.custom]](https://nodejs.org/api/util.html#util_custom_inspection_functions_on_objects) method. Therefore, console.log() will show actual data as plain object.
 
 i.e. Implmention details will be covered and only user data is visible from console.log.
@@ -42,7 +42,7 @@ car.set("set","abc"); //--- set `set` column of `car` table to "abc"
 car.get("get"); //-- get `get` column of `car` table
 ```
 
-## Getting started
+## Getting Started
 
 Create test table `people` in `test` database:
 
@@ -154,3 +154,100 @@ And have your .babelrc setup:
 }
 ```
 
+## API 
+
+### Class CActiveRecord
+
+This class creates the data access mapping to a table row in database.
+
+Import class
+
+```
+import { CActiveRecord } from "@hostaworld/active-record-node";
+```
+or 
+```
+const { CActiveRecord } = require("@hostaworld/active-record-node");
+```
+
+#### Methods:
+
+* construct(tableName) : You don't have to initiate the object of CActiveRecord unless you need to create new record of the target table.
+    * tableName: String. table name of the target table.
+* set(columnName, value) :  Set/update the value of one column of the target table. You only need this method if the column name is one of those special names, such as `set`, `get` etc. See in top [Features](#features) section.
+* get(columnName) : Get the value of one column of the target table.
+* commit() : Save any possible changes to database.
+    * Will return the promise of the requested operation. Use `await` expression to pause the operation until the Promise is fulfilled or rejected.
+* delete() : Delete the relevant record from database.
+    * Will return the promise of the requested operation. Use `await` expression to pause the operation until the Promise is fulfilled or rejected.
+
+#### Control Properties
+
+The following control properties can be used to control how CSearcher fetch result from database:
+
+* `debug` : set this property to true will cause CSearcher output all SQL queries to terminal (through `console.log`)
+
+### Class CSearcher
+
+This class creates a query interface mapping to a table row in database.
+
+Set value of a property of initiated CSearcher object will create `equals` query condition.
+
+e.g.
+```
+const s = new CSearcher("table");
+s["columnName"]=value;
+```
+Will generate query condition `columnName=value`.
+
+You also can create the similar query condition by:
+```
+const s = new CSearcher("table");
+s["columnName"]["="]=value;
+``` 
+the `["="]` can be replaced with other operators (e.g. `["operator"]`). Supported operators are:
+* `=` : equals
+* `!=` : not equals
+* `>` : larger than
+* `>=` : larger than or equal to 
+* `<` : lower than
+* `<=` : lower than or equal to 
+* `LIKE` : string column matching certain parttern
+* `NOT LIKE` : string column matching certain parttern
+* `IN` : Column value is included in the list. value provided must be an array
+* `NOT IN` : Column value is not included in the list. value provided must be an array
+* `IS NOT NULL` : You can set any value when set this operator. The value you set will be ignored. e.g. `s["column"]["IS NOT NULL"]=1;` will generate query condition `column IS NOT NULL`.
+* `IS NULL` : You can set any value when set this operator. The value you set will be ignored. e.g. `s["column"]["IS NULL"]=1;` will generate query condition `column IS NULL`.
+
+For usage, please see [Getting Started](#getting-started) section above.
+
+Import class
+
+```
+import { CSearcher } from "@hostaworld/active-record-node";
+```
+or 
+```
+const { CSearcher } = require("@hostaworld/active-record-node");
+```
+
+#### Methods:
+
+* construct(tableName) : Initiate an instance of the CSearcher class
+    * tableName: String. table name of the target table.
+* fetchResult(arg1=null,arg2=null) : get records that meet query conditions from database table.
+    * will return an array of the matching table rows. Each array item is the instance of CActiveRecord class. If no match record found, empty array will return.
+    * Both arg1 & arg2 expect an integer. 
+    * If both parameters present, arg1 stands for offset of the result set and arg2 stands for the number of records to be fetched.
+    * If only arg1 is provided, arg1 stands for the number of records to be fetched.
+* fetchRawData(arg1=null,arg2=null) : Same as fetchResult. Only difference is this method will result set as plain objects. 
+
+#### Control Properties
+
+The following control properties can be used to control how CSearcher fetch result from database:
+
+* `orderBy` : set order of returned records.
+    * e.g. `s.orderBy = 'columnA ASC';`
+* `groupBy` : group result by certian column
+    * e.g. `s.groupBy = 'columnA,columnB';`
+* `debug` : set this property to true will cause CSearcher output all SQL queries to terminal (through `console.log`)

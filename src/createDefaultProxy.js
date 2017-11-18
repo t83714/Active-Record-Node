@@ -17,7 +17,7 @@ const _isPublicPropByList = (list, target, prop)=>{
     else return false;
 };
 
-const createDefaultProxy = function(cls,proxyDef={}){
+const createDefaultProxy = function(cls, proxyDef = {}, exposePublicProperties = true){
     return function(...arg){
         this._obj = new (Function.prototype.bind.apply(cls, [this].concat(arg)));
 
@@ -42,11 +42,13 @@ const createDefaultProxy = function(cls,proxyDef={}){
 
         if(typeof this._obj[proxyHandlerSymbols.set] === "function"){
             defaultProxyDef.set = (target, property, value, receiver)=>{
-                if(isPublicProp(target, property) && !isPublicMethod(target, property)) {
+                if(isPublicMethod(target, property)){
+                    return false;
+                }else if(exposePublicProperties && isPublicProp(target, property)){
                     target[property] = value;
                     return true;
-                }else {
-                    let r=this._obj[proxyHandlerSymbols.set](property, value);
+                }else{
+                    const r=this._obj[proxyHandlerSymbols.set](property, value);
                     if(typeof r === "undefined") return true;
                     return r;
                 }
@@ -55,12 +57,11 @@ const createDefaultProxy = function(cls,proxyDef={}){
 
         if(typeof this._obj[proxyHandlerSymbols.get] === "function"){
             defaultProxyDef.get = (target, property, value, receiver)=>{
-                if(isPublicProp(target, property)) {
-                    if(isPublicMethod(target, property)) {
-                        return target[property].bind(target);
-                    }
-                    else return target[property];
-                }else {
+                if(isPublicMethod(target, property)){
+                    return target[property].bind(target);
+                }else if(exposePublicProperties && isPublicProp(target, property)){
+                    return target[property];
+                }else{
                     return this._obj[proxyHandlerSymbols.get](property);
                 }
             }
