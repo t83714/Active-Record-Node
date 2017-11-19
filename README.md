@@ -267,7 +267,7 @@ Examples:
 const mysql = require("mysql2/promise"); //--- load Mysql2 lib;
 const {setDB} = require("@hostaworld/active-record-node");
 //-- Create mysql connection
-const db = mysql.createConnection({
+const db = await mysql.createConnection({
     host: "192.168.1.166",
     user: "root",
     password: "",
