@@ -113,7 +113,9 @@ class CActiveRecord {
             if(this.debug) {
                 console.log([sql,params]);
             }
-            return this.db.execute(sql,params);
+            return this.db.execute(sql,params).then(([rows, fields]) => {
+                return rows.insertId;
+            });
         };
 
         const updateRecord = async()=>{
@@ -142,7 +144,7 @@ class CActiveRecord {
         };
 
         if(this.isNewRecord) {
-            await insertNewRecord();
+            return await insertNewRecord();
             this.isNewRecord = false;
         }else {
             if(this.updatedFields.length===0) return;

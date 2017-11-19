@@ -87,7 +87,9 @@ setDB(db); //-- @hostaworld/active-record-node will use this db connection
         const record = new CActiveRecord("people");
         record["firstName"] = "Jim";
         record["lastName"] = "Will";
-        await record.commit();
+        const newId = await record.commit();
+
+        console.log(newId); //--- output newly generated auto increment primary key
 
         s = new CSearcher("people"); //--- query people table
         s["id"]["<="] = 100; //-- fetch all records id <= 100
@@ -178,6 +180,7 @@ const { CActiveRecord } = require("@hostaworld/active-record-node");
 * get(columnName) : Get the value of one column of the target table.
 * commit() : Save any possible changes to database.
     * Will return the promise of the requested operation. Use `await` expression to pause the operation until the Promise is fulfilled or rejected.
+    * If commit involves `insert` operation, the promise will be resolved to the newly generated ID for an auto increment primary key. Otherwise, the promise will be resolved to `undefined`.
 * delete() : Delete the relevant record from database.
     * Will return the promise of the requested operation. Use `await` expression to pause the operation until the Promise is fulfilled or rejected.
 
@@ -261,6 +264,7 @@ Parameter `db` can be `connection` or `pool` of [mysql2](https://github.com/sido
 Examples: 
 
 ```
+const mysql = require("mysql2/promise"); //--- load Mysql2 lib;
 const {setDB} = require("@hostaworld/active-record-node");
 //-- Create mysql connection
 const db = mysql.createConnection({
@@ -276,6 +280,7 @@ setDB(db); //-- @hostaworld/active-record-node will use this db connection
 or 
 
 ```
+const mysql = require("mysql2/promise"); //--- load Mysql2 lib;
 const {setDB} = require("@hostaworld/active-record-node");
 //-- Create mysql connection
 const db = mysql.createPool({
