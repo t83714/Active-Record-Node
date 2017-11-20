@@ -1,4 +1,5 @@
-# Active-Record-Node
+# Active-Record-Node 
+
 A Simple Active Record Style ORM for Node.
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
@@ -295,3 +296,12 @@ const db = mysql.createPool({
 
 setDB(db); //-- @hostaworld/active-record-node will use this db connection
 ```
+
+[npm-image]: https://badge.fury.io/js/%40hostaworld%2Factive-record-node.svg
+[npm-url]: https://badge.fury.io/js/%40hostaworld%2Factive-record-node
+[travis-image]: https://travis-ci.org/t83714/Active-Record-Node.svg
+[travis-url]: https://travis-ci.org/t83714/Active-Record-Node
+[daviddm-image]: https://david-dm.org/t83714/Active-Record-Node.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/t83714/Active-Record-Node
+[coveralls-image]: https://coveralls.io/repos/github/t83714/Active-Record-Node/badge.svg
+[coveralls-url]: https://coveralls.io/repos/github/t83714/Active-Record-Node
