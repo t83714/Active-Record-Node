@@ -8,7 +8,8 @@
     "build": "webpack --progress --colors",
     "build:min": "PROD_ENV=1 webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
-    "test": "jest"
+    "test": "jest",
+    "test-ci": "jest --coverage --ci"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,10 @@
 # Active-Record-Node
 A Simple Active Record Style ORM for Node.
 
+  [![NPM version][npm-image]][npm-url]
+  [![build status][travis-image]][travis-url]
+  [![Test coverage][coveralls-image]][coveralls-url]
+
 ## Features:
 * Implment [[util.inspect.custom]](https://nodejs.org/api/util.html#util_custom_inspection_functions_on_objects) method. Therefore, console.log() will show actual data as plain object.
 
