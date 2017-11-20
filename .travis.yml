@@ -22,7 +22,7 @@ install:
 
 script:
   - "npm run build:min"
-  - "npm test"
+  - "npm run test-ci"
  # - "test   -z $(npm -ps ls nyc) || npm run-script test-ci"
  # - "test   -z $(npm -ps ls eslint) || npm run-script lint"
 
