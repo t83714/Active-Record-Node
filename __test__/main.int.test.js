@@ -82,6 +82,5 @@ test("CActiveRecord: Call delete will remove the record from database", async ()
     s = new CSearcher("people");
     s["id"] = 1;
     rows = await s.fetchResult();
-    result = rows;
     expect(rows.length).toBe(0);
 });
