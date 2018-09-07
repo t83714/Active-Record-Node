@@ -3,7 +3,9 @@ export const construct = Symbol("Proxy.construct()");
 export const defineProperty = Symbol("Proxy.defineProperty");
 export const deleteProperty = Symbol("Proxy.deleteProperty");
 export const get = Symbol("Proxy.get");
-export const getOwnPropertyDescriptor = Symbol("Proxy.getOwnPropertyDescriptor");
+export const getOwnPropertyDescriptor = Symbol(
+    "Proxy.getOwnPropertyDescriptor"
+);
 export const getPrototypeOf = Symbol("Proxy.getPrototypeOf");
 export const has = Symbol("Proxy.has");
 export const isExtensible = Symbol("Proxy.isExtensible");

@@ -2,14 +2,21 @@
   "name": "@hostaworld/active-record-node",
   "version": "1.0.7",
   "description": "A Simple Active Record Style ORM for Node",
-  "main": "lib/index.bundle.min.js",
+  "main": "dist/@hostaworld/active-record-node.cjs.js",
+  "module": "dist/@hostaworld/active-record-node.esm.js",
+  "unpkg": "dist/@hostaworld/active-record-node.min.umd.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "prepublish": "PROD_ENV=1 webpack",
-    "build": "webpack --progress --colors",
-    "build:min": "PROD_ENV=1 webpack --progress --colors",
-    "watch": "webpack --progress --colors --watch",
+    "prepublish": "npm run build",
+    "build": "rollup -c",
     "test": "jest",
-    "test-ci": "jest --coverage --ci"
+    "test-ci": "jest --coverage --ci",
+    "prettier": "prettier --write 'src/*.js'",
+    "release:patch": "npm version patch && npm publish && git push --follow-tags",
+    "release:minor": "npm version minor && npm publish && git push --follow-tags",
+    "release:major": "npm version major && npm publish && git push --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -29,28 +36,33 @@
   },
   "homepage": "https://github.com/t83714/Active-Record-Node#readme",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "@babel/runtime": "^7.0.0-rc.3",
+    "lodash": "^4.17.10",
+    "uuid": "^3.1.0",
+    "mysql2": "^1.6.1"
   },
   "devDependencies": {
-    "jest": "^21.2.1",
-    "mysql2": "^1.5.1",
-    "uglifyjs-webpack-plugin": "^1.0.1",
-    "uuid": "^3.1.0",
-    "webpack": "^3.8.1"
-  },
-  "@std/esm": {
-    "esm": "all",
-    "cjs": true
-  },
-  "jest": {
-    "testMatch": [
-      "**/test/?(*.)(spec|test).js"
-    ],
-    "coverageReporters": [
-      "text-summary",
-      "lcov"
-    ],
-    "bail": true,
-    "testEnvironment": "node"
+    "@babel/cli": "^7.0.0-rc.3",
+    "@babel/core": "^7.0.0-rc.3",
+    "@babel/node": "^7.0.0-rc.3",
+    "@babel/plugin-transform-runtime": "^7.0.0-rc.3",
+    "@babel/polyfill": "^7.0.0-rc.3",
+    "@babel/preset-env": "^7.0.0-rc.3",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
+    "babel-plugin-annotate-pure-calls": "babel7",
+    "coveralls": "^3.0.0",
+    "jest": "^23.5.0",
+    "prettier": "^1.13.7",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.64.1",
+    "rollup-plugin-babel": "4.0.0-beta.1",
+    "rollup-plugin-commonjs": "^9.1.5",
+    "rollup-plugin-json": "^3.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^4.0.0"
   }
 }
