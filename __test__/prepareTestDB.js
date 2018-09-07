@@ -1,7 +1,7 @@
 const mysql = require("mysql2/promise");
-const uuidv4 = require('uuid/v4');
+const uuidv4 = require("uuid/v4");
 
-const dbName = "app_test_"+uuidv4();
+const dbName = "app_test_" + uuidv4();
 const createDBSQL = `
 CREATE DATABASE IF NOT EXISTS \`${dbName}\`;
 USE \`${dbName}\`;
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS \`people\` (
 
 const prepareTestDB = async () => {
     const dbConn = await mysql.createConnection({
-        host: "localhost",
+        host: "127.0.0.1",
         user: "root",
         password: "",
         multipleStatements: true
@@ -24,9 +24,9 @@ const prepareTestDB = async () => {
     return dbConn;
 };
 
-const removeTestDB = async (db) => {
+const removeTestDB = async db => {
     db.query(`DROP DATABASE \`${dbName}\``);
     await db.end();
-}
+};
 
-module.exports = {prepareTestDB, removeTestDB};
+module.exports = { prepareTestDB, removeTestDB };
