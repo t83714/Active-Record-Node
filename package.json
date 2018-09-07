@@ -1,6 +1,6 @@
 {
   "name": "@hostaworld/active-record-node",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "A Simple Active Record Style ORM for Node",
   "main": "dist/@hostaworld/active-record-node.cjs.js",
   "module": "dist/@hostaworld/active-record-node.esm.js",
