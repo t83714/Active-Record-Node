@@ -37,7 +37,7 @@
   "homepage": "https://github.com/t83714/Active-Record-Node#readme",
   "dependencies": {
     "@babel/runtime": "^7.0.0-rc.3",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "uuid": "^3.1.0",
     "mysql2": "^1.6.1"
   },
