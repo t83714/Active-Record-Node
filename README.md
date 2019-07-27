@@ -2,7 +2,7 @@
 
 A Simple Active Record Style ORM for Node.
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@hostaworld/active-record-node.svg)](https://bundlephobia.com/result?p=@hostaworld/active-record-node) [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
 ## Features:
 * Implment [[util.inspect.custom]](https://nodejs.org/api/util.html#util_custom_inspection_functions_on_objects) method. Therefore, console.log() will show actual data as plain object.
