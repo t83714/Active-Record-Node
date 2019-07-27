@@ -1,10 +1,9 @@
 {
   "name": "@hostaworld/active-record-node",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Simple Active Record Style ORM for Node",
   "main": "dist/@hostaworld/active-record-node.cjs.js",
   "module": "dist/@hostaworld/active-record-node.esm.js",
-  "unpkg": "dist/@hostaworld/active-record-node.min.umd.js",
   "files": [
     "dist"
   ],
@@ -44,23 +43,19 @@
     "mysql2": "^1.6.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0-rc.3",
-    "@babel/preset-env": "^7.0.0-rc.3",
-    "babel-core": "^7.0.0-0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-eslint": "^8.2.6",
-    "babel-jest": "^23.4.2",
     "babel-plugin-annotate-pure-calls": "babel7",
     "coveralls": "^3.0.0",
-    "jest": "^23.5.0",
+    "jest": "^24.0.0",
     "prettier": "^1.13.7",
     "rimraf": "^2.6.2",
     "rollup": "^0.64.1",
     "rollup-plugin-babel": "4.0.0-beta.1",
     "rollup-plugin-commonjs": "^9.1.5",
     "rollup-plugin-json": "^3.0.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^4.0.0"

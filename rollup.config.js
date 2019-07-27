@@ -5,22 +5,10 @@ import replace from "rollup-plugin-replace";
 import { uglify } from "rollup-plugin-uglify";
 import json from "rollup-plugin-json";
 import commonjs from "rollup-plugin-commonjs";
-import builtins from 'rollup-plugin-node-builtins';
 import pkg from "./package.json";
 
 const ensureArray = maybeArr =>
     Array.isArray(maybeArr) ? maybeArr : [maybeArr];
-
-const makeExternalPredicate = externalArr => {
-    if (!externalArr.length) {
-        return () => false;
-    }
-    const pattern = new RegExp(`^(${externalArr.join("|")})($|/)`);
-    return id => pattern.test(id);
-};
-
-const deps = Object.keys(pkg.dependencies || {});
-const peerDeps = Object.keys(pkg.peerDependencies || {});
 
 const createConfig = ({ input, output, external, env, min = false, ...props }) => ({
     input,
@@ -31,9 +19,7 @@ const createConfig = ({ input, output, external, env, min = false, ...props }) =
             exports: "named"
         })
     ),
-    external: makeExternalPredicate(
-        external === "peers" ? peerDeps : deps.concat(peerDeps)
-    ),
+    external: ["util"],
     plugins: [
         nodeResolve({
             jsnext: true
@@ -41,7 +27,6 @@ const createConfig = ({ input, output, external, env, min = false, ...props }) =
         json({
             exclude: ["./node_modules/**"]
         }),
-        builtins(),
         commonjs({
             include: "./node_modules/**"
         }),
@@ -81,32 +66,5 @@ export default [
             format: "cjs",
             file: "dist/" + pkg.name + ".cjs.js"
         }
-    }),
-    createConfig({
-        input: "src/index.js",
-        output: {
-            file: "dist/" + pkg.name + ".umd.js",
-            format: "umd",
-            globals: {
-                react : "React",
-                "prop-types" : "PropTypes"
-            }
-        },
-        external: "peers",
-        env: "development"
-    }),
-    createConfig({
-        input: "src/index.js",
-        output: {
-            file: "dist/" + pkg.name + ".min.umd.js",
-            format: "umd",
-            globals: {
-                react : "React",
-                "prop-types" : "PropTypes"
-            }
-        },
-        external: "peers",
-        env: "production",
-        min: true
     })
 ];
