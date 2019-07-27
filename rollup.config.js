@@ -59,8 +59,7 @@ const createConfig = ({ input, output, external, env, min = false, ...props }) =
                 compress: {
                     pure_getters: true,
                     unsafe: true,
-                    unsafe_comps: true,
-                    warnings: false
+                    unsafe_comps: true
                 }
             })
     ].filter(Boolean),

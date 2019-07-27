@@ -14,6 +14,8 @@
     "test": "jest",
     "test-ci": "jest --coverage --ci",
     "prettier": "prettier --write 'src/*.js'",
+    "start-db": "cd __test__/mysql && docker-compose up -d",
+    "stop-db": "cd __test__/mysql && docker-compose down -v",
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
     "release:major": "npm version major && npm publish && git push --follow-tags"
@@ -36,17 +38,15 @@
   },
   "homepage": "https://github.com/t83714/Active-Record-Node#readme",
   "dependencies": {
-    "@babel/runtime": "^7.0.0-rc.3",
+    "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.11",
     "uuid": "^3.1.0",
     "mysql2": "^1.6.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-rc.3",
-    "@babel/core": "^7.0.0-rc.3",
-    "@babel/node": "^7.0.0-rc.3",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0-rc.3",
-    "@babel/polyfill": "^7.0.0-rc.3",
     "@babel/preset-env": "^7.0.0-rc.3",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.6",
